@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="print" class="ru.home.ioc.Printer">
+              <constructor-arg index="0" type="java.lang.String" value="Hello World!!"/>
+              <constructor-arg index="1" type="int" value="215"/>
+              <constructor-arg index="2" type="int" value="10"/>
+       </bean>
+
+       <bean id="single" class="ru.home.ioc.Single" factory-method="getInstance"/>
+
+       <alias name="single" alias="new_name_single"/>
+
+       <bean id="beanlist" class="ru.home.ioc.BeanList" init-method="init" destroy-method="close" lazy-init="true">
+              <property name="a" value="23"/>
+              <property name="list">
+                     <list>
+                            <!--value>value 1</value>
+                            <value>value 2</value>
+                            <value>value 3</value>
+                            <value>value 4</value>
+                            <value>value 5</value>
+                            <value>value 6</value>-->
+                            <!--<bean id="f" class="Class"/>-->
+                            <!--<ref bean="f"/>-->
+                     </list>
+              </property>
+       </bean>
+
+       <bean id="RecommendID" class="ru.home.aop.Recommend"/>
+
+       <!--<bean id="pointcutID" class="org.springframework.aop.support.NameMatchMethodPointcut">
+              <property name="mappedName" value="getA" />
+       </bean>
+
+       <bean  id="adviceID" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+              <property name="pointcut" ref="pointcutID"/>
+              <property name="advice" ref="RecommendID"/>
+       </bean>-->
+
+       <bean  id="adviceID" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+              <property name="patterns">
+                     <list>
+                            <value>.*get.*</value>
+                     </list>
+              </property>
+              <property name="advice" ref="RecommendID"/>
+       </bean>
+
+       <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+              <property name="target" ref="beanlist"/>
+              <property name="interceptorNames">
+                     <list>
+                            <value>adviceID</value>
+                     </list>
+              </property>
+       </bean>
+</beans>
