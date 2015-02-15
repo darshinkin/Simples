@@ -24,6 +24,10 @@ public class Main {
 
         logger.info("Program run...");
 
+        workWithSpring();
+    }
+
+    private static void workWithSpring() {
         ApplicationContext actx = new ClassPathXmlApplicationContext(R.Spring.SPRING_CONFIG_FILE);
 
         IPrintf ptr = (IPrintf) actx.getBean("print");
