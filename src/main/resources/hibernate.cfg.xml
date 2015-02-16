@@ -14,5 +14,6 @@
 
       <!--<mapping resource="book.hbm.xml"/>-->
       <mapping class="ru.home.hibernate.table.Book"/>
+      <mapping class="ru.home.hibernate.table.Author"/>
   </session-factory>
 </hibernate-configuration>

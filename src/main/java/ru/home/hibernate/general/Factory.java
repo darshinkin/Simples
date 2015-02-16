@@ -1,6 +1,8 @@
 package ru.home.hibernate.general;
 
+import ru.home.hibernate.dao.AuthorDao;
 import ru.home.hibernate.dao.BookDao;
+import ru.home.hibernate.dao.impl.AuthorDaoImpl;
 import ru.home.hibernate.dao.impl.BookDaoImpl;
 
 /**
@@ -9,6 +11,7 @@ import ru.home.hibernate.dao.impl.BookDaoImpl;
 public class Factory {
     private static Factory instance = new Factory();
     private BookDao bookDao;
+    private AuthorDao authorDao;
 
     private Factory(){}
 
@@ -21,5 +24,12 @@ public class Factory {
             bookDao = new BookDaoImpl();
         }
         return bookDao;
+    }
+
+    public AuthorDao getAuthorDao() {
+        if (authorDao == null) {
+            authorDao = new AuthorDaoImpl();
+        }
+        return authorDao;
     }
 }
